@@ -1,4 +1,5 @@
 #获取设备ip
+# grep -v 192.168.50.1 为过滤本机ip，自己看着改
 ip=`ifconfig -a | grep inet | grep -v inet6 | grep -v 127.0.0.1 | grep -v 192.168.50.1 | awk '{print $2}' | tr -d "addr:"`
 #登录
 #参数自己改
