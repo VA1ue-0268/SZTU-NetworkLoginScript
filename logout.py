@@ -1,9 +1,13 @@
 from bs4 import BeautifulSoup
-import subprocess
 import requests
+import argparse
 
-out_bytes = subprocess.check_output(['sh', '/jffs/scripts/getip.sh'])
-ip = out_bytes.decode('utf-8').replace('\n', '')
+parser = argparse.ArgumentParser()
+parser.add_argument('--ip')
+args = parser.parse_args()
+
+ip = args.ip
+print(ip)
 
 login_url = 'http://47.98.217.39/lfradius/home.php?a=userlogin&c=login'
 
