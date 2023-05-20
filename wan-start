@@ -1,0 +1,6 @@
+#!/bin/sh
+/usr/bin/onwanstart.sh
+/usr/bin/plugin.sh start
+
+cru a "check_status" "*/1 * * * * /jffs/scripts/check_status.sh"
+cru a "checknetwork" "*/2 * * * * /jffs/scripts/checknetwork.sh"

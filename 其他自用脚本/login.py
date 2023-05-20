@@ -3,7 +3,7 @@ import requests
 url = 'http://10.99.99.99:8010/cgi-bin/webauth/ajax_webauth'
 header = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36',
-    'Referer': 'http://47.98.217.39/',
+    'Referer': 'http://47.98.217.40/',
     }
 
 # 参数自己改
