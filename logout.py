@@ -35,3 +35,18 @@ result = requests.get(record_url, headers=header, cookies=cookie)
 
 result = requests.get(logout_url, headers=header, cookies=cookie)
 
+
+
+login_url = 'http://47.98.217.40/lfradius/home.php?a=userlogin&c=login'
+logout_url = 'http://47.98.217.40/lfradius/home.php/user/offline/user/202011100114'
+record_url = 'http://47.98.217.40/lfradius/home.php/user/online'
+header = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36',
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Referer': 'http://47.98.217.40/lfradius/login.php?c=login&a=showlogin',
+    }
+result = requests.post(login_url, headers=header, data=data)
+cookie = result.cookies.get_dict()
+result = requests.get(record_url, headers=header, cookies=cookie)
+
+result = requests.get(logout_url, headers=header, cookies=cookie)

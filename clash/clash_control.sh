@@ -114,6 +114,10 @@ get_proc_status() {
 
 # 添加守护监控脚本
 add_cron() {
+
+    cru a "check_status" "*/1 * * * * /jffs/scripts/check_status.sh"
+    cru a "checknetwork" "*/2 * * * * /jffs/scripts/checknetwork.sh"
+
     if cru l | grep ${cron_id} >/dev/null && cru l |grep update_provider_local >/dev/null; then
         LOGGER "进程守护脚本已经添加!不需要重复添加吧？！？"
         return 0
@@ -127,19 +131,19 @@ add_cron() {
         return 1
     fi
 
-    cru a "update_provider_local" "0 * * * * /koolshare/scripts/clash_control.sh update_provider_file >/dev/null 2>&1"
-    if cru l | grep update_provider_local >/dev/null; then
-        LOGGER "添加订阅源更新调度脚本成功!"
-    else
-        LOGGER "不知道啥原因，订阅源更新调度脚本没添加到调度里！赶紧查查吧！"
-        return 1
-    fi
+    # cru a "update_provider_local" "0 * * * * /koolshare/scripts/clash_control.sh update_provider_file >/dev/null 2>&1"
+    # if cru l | grep update_provider_local >/dev/null; then
+    #     LOGGER "添加订阅源更新调度脚本成功!"
+    # else
+    #     LOGGER "不知道啥原因，订阅源更新调度脚本没添加到调度里！赶紧查查吧！"
+    #     return 1
+    # fi
 
 }
 
 # 删除守护监控脚本
 del_cron() {
-    cru d "update_provider_local"
+    # cru d "update_provider_local"
     cru d "${cron_id}"
     LOGGER "删除进程守护脚本成功!"
 }
@@ -183,12 +187,12 @@ add_iptables() {
         iptables -t nat -A ${app_name} -d ${lan_ipaddr}/16 -j RETURN
         # 服务端口${redir_port}接管HTTP/HTTPS请求转发, 过滤 22,1080,8080一些代理常用端口
         iptables -t nat -A ${app_name} -s ${lan_ipaddr}/16 -p tcp -m multiport --dport 80,443 -j REDIRECT --to-ports ${redir_port}
-        # 转发DNS请求到端口 dns_port 解析
-        # iptables -t nat -N ${app_name}_dns
-        # iptables -t nat -F ${app_name}_dns
-        # iptables -t nat -A ${app_name}_dns -p udp -s ${lan_ipaddr}/16 --dport 53 -j REDIRECT --to-ports $dns_port
-        # iptables -t nat -A PREROUTING -p udp -s ${lan_ipaddr}/16 --dport 53 -j ${app_name}_dns
-        # iptables -t nat -I OUTPUT -p udp --dport 53 -j ${app_name}_dns
+        # # 转发DNS请求到端口 dns_port 解析
+        iptables -t nat -N ${app_name}_dns
+        iptables -t nat -F ${app_name}_dns
+        iptables -t nat -A ${app_name}_dns -p udp -s ${lan_ipaddr}/16 --dport 53 -j REDIRECT --to-ports $dns_port
+        iptables -t nat -A PREROUTING -p udp -s ${lan_ipaddr}/16 --dport 53 -j ${app_name}_dns
+        iptables -t nat -I OUTPUT -p udp --dport 53 -j ${app_name}_dns
     fi
 }
 
