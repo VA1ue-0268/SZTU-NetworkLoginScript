@@ -9,15 +9,14 @@ import requests
 # ip = args.ip
 # print(ip)
 
-login_url = 'http://47.98.217.39/lfradius/home.php?a=userlogin&c=login'
-logout_url = 'http://47.98.217.39/lfradius/home.php/user/offline/user/202011100114'
-
+login_url = 'http://47.98.217.39/lfradius/home.php?c=user&a=user_login'
+logout_url = 'http://47.98.217.39/lfradius/home.php?c=user&a=offline&r=all'
 record_url = 'http://47.98.217.39/lfradius/home.php/user/online'
 
 header = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36',
     'Content-Type': 'application/x-www-form-urlencoded',
-    'Referer': 'http://47.98.217.39/lfradius/login.php?c=login&a=showlogin',
+    'Referer': 'http://47.98.217.39/lfradius/web/home/person',
     }
 
 ### 改这里
@@ -37,13 +36,13 @@ result = requests.get(logout_url, headers=header, cookies=cookie)
 
 
 
-login_url = 'http://47.98.217.40/lfradius/home.php?a=userlogin&c=login'
-logout_url = 'http://47.98.217.40/lfradius/home.php/user/offline/user/202011100114'
+login_url = 'http://47.98.217.40/lfradius/home.php?c=user&a=user_login'
+logout_url = 'http://47.98.217.40/lfradius/home.php?c=user&a=offline&r=all'
 record_url = 'http://47.98.217.40/lfradius/home.php/user/online'
 header = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36',
     'Content-Type': 'application/x-www-form-urlencoded',
-    'Referer': 'http://47.98.217.40/lfradius/login.php?c=login&a=showlogin',
+    'Referer': 'http://47.98.217.40/lfradius/web/home/person',
     }
 result = requests.post(login_url, headers=header, data=data)
 cookie = result.cookies.get_dict()
