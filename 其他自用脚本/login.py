@@ -12,6 +12,7 @@ header = {
 
 username = 
 password = 
+ip = 
 
 data0 = {
     "usrname": username,
@@ -22,7 +23,7 @@ data0 = {
     "protal_version": "1",
     "protal_papchap": "pap",
     "usrmac": "48:51:c5:ab:d4:5c",
-    "usrip": "10.117.11.4",
+    "usrip": ip,
     "basip": "172.17.127.254",
     "success": "http://47.98.217.39/lfradius/libs/portal/unify/portal.php/login/success/",
     "fail": "http://47.98.217.39/lfradius/libs/portal/unify/portal.php/login/fail"
