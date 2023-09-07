@@ -37,9 +37,7 @@ do
             service restart_wan
             sleep 30
             python /jffs/scripts/logout.py
-
-            username=
-            password=
+            
             ip=`ifconfig -a | grep inet | grep -v inet6 | grep -v 127.0.0.1 | grep -v 192.168.50.1 | grep -v 172.16.0.1 | awk '{print $2}' | tr -d "addr:"`
             
             python /jffs/scripts/login.py --ip $ip
