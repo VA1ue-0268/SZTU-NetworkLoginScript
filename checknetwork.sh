@@ -29,7 +29,6 @@ do
         con=0
         if [ $times -ge 2 ];then
             times=0
-            ip=`ifconfig -a | grep inet | grep -v inet6 | grep -v 127.0.0.1 | grep -v 192.168.50.1 | grep -v 172.16.0.1 | awk '{print $2}' | tr -d "addr:"`
             mac_addr=`cat /sys/class/net/vlan2/address`
             new_mac_addr=${mac_addr:0:15}`openssl rand -hex 1 |sed 's/../&:/g;s/:$//'`
             nvram set wan0_hwaddr=${new_mac_addr}
@@ -37,17 +36,13 @@ do
             nvram commit
             service restart_wan
             sleep 30
-            python /jffs/scripts/logout.py --ip $ip
+            python /jffs/scripts/logout.py
 
             username=
             password=
             ip=`ifconfig -a | grep inet | grep -v inet6 | grep -v 127.0.0.1 | grep -v 192.168.50.1 | grep -v 172.16.0.1 | awk '{print $2}' | tr -d "addr:"`
             
-            curl -X POST -d "usrname=$username&passwd=$password&treaty=on&nasid=3&offline=0&protal_version=1&protal_papchap=pap&usrmac=30:5f:77:d9:28:01&usrip=$ip&basip=172.17.127.254&success=http://47.98.217.39/lfradius/libs/portal/unify/portal.php/login/success/&fail=http://47.98.217.39/lfradius/libs/portal/unify/portal.php/login/fail" -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36' http://47.98.217.39/lfradius/libs/portal/unify/portal.php/login/cmcc_login
-            curl -X POST -d "usrname=$username&passwd=$password&treaty=on&nasid=3&offline=0&protal_version=1&protal_papchap=pap&usrmac=30:5f:77:d9:28:01&usrip=$ip&basip=172.17.127.254&success=http://47.98.217.40/lfradius/libs/portal/unify/portal.php/login/success/&fail=http://47.98.217.40/lfradius/libs/portal/unify/portal.php/login/fail" -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36' http://47.98.217.40/lfradius/libs/portal/unify/portal.php/login/cmcc_login
-
-            # curl -X POST -d "action=login&user=$username&pwd=$password&usrmac=30:5f:77:d9:28:01&ip=$ip&success=http://47.98.217.39/lfradius/libs/portal/unify/portal.php/login/success/nastype/Panabit/basip/10.99.99.99/usrip/$ip&fail=http://47.98.217.39/lfradius/libs/portal/unify/portal.php/login/fail" -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36' http://10.99.99.99:8010/cgi-bin/webauth/ajax_webauth
-
+            python /jffs/scripts/login.py --ip $ip
             break
         fi
     else

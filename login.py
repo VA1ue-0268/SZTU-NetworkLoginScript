@@ -1,4 +1,12 @@
 import requests
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--ip')
+args = parser.parse_args()
+
+ip = args.ip
+print(ip)
 
 url0 = 'http://47.98.217.39/lfradius/libs/portal/unify/portal.php/login/cmcc_login'
 url1 = 'http://47.98.217.39/lfradius/libs/portal/unify/portal.php/login/cmcc_login_result/'
@@ -12,7 +20,6 @@ header = {
 
 username = 
 password = 
-ip = 
 
 data0 = {
     "usrname": username,
